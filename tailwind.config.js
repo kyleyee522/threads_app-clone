@@ -121,11 +121,19 @@ module.exports = {
 					fontWeight: '600',
 				},
 			],
+
 			'small-regular': [
 				'14px',
 				{
 					lineHeight: '140%',
 					fontWeight: '400',
+				},
+			],
+			'xsmall-medium': [
+				'12px',
+				{
+					lineHeight: '140%',
+					fontWeight: '500',
 				},
 			],
 			'small-medium': [
