@@ -43,6 +43,8 @@ async function Home({
 								createdAt={post.createdAt}
 								comments={post.children}
 								likes={userInfo._id}
+								likesCount={post.likes}
+								isLiked={userInfo.likedPosts.includes(post._id)}
 							/>
 						))}
 					</>

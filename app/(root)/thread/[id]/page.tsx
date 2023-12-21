@@ -4,6 +4,7 @@ import { fetchThreadById } from '@/lib/actions/thread.action';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import { redirect } from 'next/navigation';
+import { boolean } from 'zod';
 
 const Page = async ({ params }: { params: { id: string } }) => {
 	if (!params.id) return null;
@@ -30,6 +31,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
 					createdAt={thread.createdAt}
 					comments={thread.children}
 					likes={JSON.stringify(userInfo._id)}
+					likesCount={thread.likes}
+					isLiked={userInfo.likedPosts.includes(thread._id)}
 				/>
 			</div>
 
@@ -55,6 +58,8 @@ const Page = async ({ params }: { params: { id: string } }) => {
 						comments={childItem.children}
 						isComment
 						likes={JSON.stringify(userInfo._id)}
+						likesCount={childItem.likes}
+						isLiked={childItem.likedPosts.includes(childItem._id)}
 					/>
 				))}
 			</div>

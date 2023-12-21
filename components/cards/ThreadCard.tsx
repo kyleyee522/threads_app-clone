@@ -15,6 +15,8 @@ interface Props {
 	comments: { author: { image: string } }[];
 	isComment?: boolean;
 	likes: string;
+	likesCount: string;
+	isLiked: boolean;
 }
 
 const ThreadCard = ({
@@ -28,6 +30,8 @@ const ThreadCard = ({
 	comments,
 	isComment,
 	likes,
+	likesCount,
+	isLiked,
 }: Props) => {
 	return (
 		<article
@@ -68,7 +72,12 @@ const ThreadCard = ({
 									height={24}
 									className="cursor-pointer object-contain"
 								/> */}
-								<LikeButton postId={id} likes={likes} />
+								<LikeButton
+									postId={id}
+									likes={likes}
+									likesCount={likesCount}
+									isLiked={isLiked}
+								/>
 
 								<Link href={`/thread/${id}`}>
 									<Image

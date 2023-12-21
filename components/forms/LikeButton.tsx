@@ -14,10 +14,12 @@ import { useState } from 'react';
 interface Props {
 	postId: string;
 	likes: string;
+	likesCount: string;
+	isLiked: boolean;
 }
 
-const LikeButton = ({ postId, likes }: Props) => {
-	const [like, setLike] = useState(false);
+const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
+	const [like, setLike] = useState(isLiked);
 
 	// const user = await currentUser();
 	// if (!user) return null;
@@ -48,6 +50,9 @@ const LikeButton = ({ postId, likes }: Props) => {
 				height={24}
 				className="cursor-pointer object-contain"
 			/>
+			{/* <p className="mt-1 text-subtle-medium text-gray-1">
+				{likesCount.length} lik{likesCount.length > 1 ? 'es' : 'e'}
+			</p> */}
 		</>
 	);
 };
