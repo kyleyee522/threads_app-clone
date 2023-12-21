@@ -1,6 +1,10 @@
 'use client';
 
-import { fetchThreadById, likePost } from '@/lib/actions/thread.action';
+import {
+	fetchThreadById,
+	likePost,
+	unlikePost,
+} from '@/lib/actions/thread.action';
 import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import Image from 'next/image';
@@ -23,7 +27,11 @@ const LikeButton = ({ postId, likes }: Props) => {
 	// const thread = await fetchThreadById(params.id);
 
 	const handleLike = async () => {
-		await likePost(postId, likes);
+		if (like === true) {
+			await unlikePost(postId, likes);
+		} else {
+			await likePost(postId, likes);
+		}
 		setLike(!like);
 	};
 

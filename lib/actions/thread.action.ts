@@ -273,6 +273,22 @@ export async function likePost(threadId: string, userId: string) {
 export async function unlikePost(threadId: string, userId: string) {
 	connectToDB();
 	try {
+		// Find the original thread by its ID
+		const originalThread = await Thread.findById(threadId);
+
+		if (!originalThread) {
+			throw new Error('Thread not found');
+		}
+
+		// Remove the user from the total likes of the Thread
+		await Thread.findByIdAndUpdate(threadId, {
+			$pull: { likes: userId },
+		});
+
+		// Remove the Thread that the user has liked
+		await User.findByIdAndUpdate(userId, {
+			$pull: { likedPosts: originalThread._id },
+		});
 	} catch (error) {
 		throw new Error('Failed to unlike the post');
 	}
