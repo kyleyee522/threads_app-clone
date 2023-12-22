@@ -40,7 +40,7 @@ async function RightSidebar() {
 						<p className="no-result">No users</p>
 					) : (
 						<>
-							{communityResult.communities.map((community) => (
+							{communityResult.communities.slice(0, 2).map((community) => (
 								<SuggestCommunityCard
 									key={community.id}
 									id={community.id}
