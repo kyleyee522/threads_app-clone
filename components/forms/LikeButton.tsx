@@ -9,7 +9,7 @@ import { fetchUser } from '@/lib/actions/user.actions';
 import { currentUser } from '@clerk/nextjs';
 import Image from 'next/image';
 import { redirect } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
 	postId: string;
@@ -20,13 +20,7 @@ interface Props {
 
 const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
 	const [like, setLike] = useState(isLiked);
-
-	// const user = await currentUser();
-	// if (!user) return null;
-
-	// const userInfo = await fetchUser(user.id);
-	// if (!userInfo.onboarded) redirect('/onboarding');
-	// const thread = await fetchThreadById(params.id);
+	// const [count, setCount] = useState(likesCount.length);
 
 	const handleLike = async () => {
 		if (like === true) {
@@ -36,8 +30,6 @@ const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
 		}
 		setLike(!like);
 	};
-
-	// const test = await likePost();
 
 	return (
 		<>
@@ -53,6 +45,13 @@ const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
 			{/* <p className="mt-1 text-subtle-medium text-gray-1">
 				{likesCount.length} lik{likesCount.length > 1 ? 'es' : 'e'}
 			</p> */}
+			{/* {count > 0 ? (
+				<p className="mt-1 text-subtle-medium text-gray-1">
+					{count} lik{count > 1 ? 'es' : 'e'}
+				</p>
+			) : (
+				''
+			)} */}
 		</>
 	);
 };
