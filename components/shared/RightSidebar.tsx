@@ -62,7 +62,7 @@ async function RightSidebar() {
 						<p className="no-result">No users</p>
 					) : (
 						<>
-							{userResult.users.map((person) => (
+							{userResult.users.slice(0, 3).map((person) => (
 								<SuggestUserCard
 									key={person.id}
 									id={person.id}
