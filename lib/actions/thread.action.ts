@@ -293,3 +293,22 @@ export async function unlikePost(threadId: string, userId: string) {
 		throw new Error('Failed to unlike the post');
 	}
 }
+
+export async function fetchLikesCount(threadId: string) {
+	connectToDB();
+	try {
+		// Find the threadId
+		const originalThread = await Thread.findById(threadId);
+
+		if (!originalThread) {
+			throw new Error('Thread not found');
+		}
+
+		// Get # of likes of thread
+		let likesCount = await originalThread.likes.length;
+
+		return likesCount;
+	} catch (error) {
+		throw new Error('Failed to fetch the likes count');
+	}
+}

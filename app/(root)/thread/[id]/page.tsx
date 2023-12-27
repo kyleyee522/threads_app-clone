@@ -30,8 +30,9 @@ const Page = async ({ params }: { params: { id: string } }) => {
 					community={thread.community}
 					createdAt={thread.createdAt}
 					comments={thread.children}
-					likes={JSON.stringify(userInfo._id)}
-					likesCount={thread.likes}
+					// likes={JSON.stringify(userInfo._id)}
+					// isLiked={userInfo.likedPosts.includes(thread._id)}
+					likes={userInfo._id}
 					isLiked={userInfo.likedPosts.includes(thread._id)}
 				/>
 			</div>
@@ -57,9 +58,10 @@ const Page = async ({ params }: { params: { id: string } }) => {
 						createdAt={childItem.createdAt}
 						comments={childItem.children}
 						isComment
-						likes={JSON.stringify(userInfo._id)}
-						likesCount={childItem.likes}
-						isLiked={childItem.likedPosts.includes(childItem._id)}
+						// likes={JSON.stringify(userInfo._id)}
+						// isLiked={userInfo.likedPosts.includes(childItem._id)}
+						likes={userInfo._id}
+						isLiked={userInfo.likedPosts.includes(childItem._id)}
 					/>
 				))}
 			</div>

@@ -4,13 +4,18 @@ import ThreadsTab from '@/components/shared/ThreadsTab';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { communityTabs } from '@/constants';
 import { fetchCommunityDetails } from '@/lib/actions/community.actions';
+import { fetchUser } from '@/lib/actions/user.actions';
 
 import { currentUser } from '@clerk/nextjs';
 import Image from 'next/image';
+import { redirect } from 'next/navigation';
 
 async function Page({ params }: { params: { id: string } }) {
 	const user = await currentUser();
 	if (!user) return null;
+
+	const userInfo = await fetchUser(user.id);
+	if (!userInfo.onboarded) redirect('/onboarding');
 
 	const communityDetails = await fetchCommunityDetails(params.id);
 
@@ -55,6 +60,7 @@ async function Page({ params }: { params: { id: string } }) {
 						<ThreadsTab
 							currentUserId={user.id}
 							accountId={communityDetails._id}
+							userInfo={userInfo}
 							accountType="Community"
 						/>
 					</TabsContent>
@@ -79,6 +85,7 @@ async function Page({ params }: { params: { id: string } }) {
 						<ThreadsTab
 							currentUserId={user.id}
 							accountId={communityDetails._id}
+							userInfo={userInfo}
 							accountType="Community"
 						/>
 					</TabsContent>

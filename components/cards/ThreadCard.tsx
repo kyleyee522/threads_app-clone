@@ -2,7 +2,6 @@ import { formatDateString } from '@/lib/utils';
 import Image from 'next/image';
 import Link from 'next/link';
 import LikeButton from '../forms/LikeButton';
-// import { useState } from 'react';
 
 interface Props {
 	id: string;
@@ -15,7 +14,6 @@ interface Props {
 	comments: { author: { image: string } }[];
 	isComment?: boolean;
 	likes: string;
-	likesCount: string;
 	isLiked: boolean;
 }
 
@@ -30,7 +28,6 @@ const ThreadCard = ({
 	comments,
 	isComment,
 	likes,
-	likesCount,
 	isLiked,
 }: Props) => {
 	return (
@@ -64,7 +61,7 @@ const ThreadCard = ({
 						<p className="mt-2 text-small-regular text-light-2">{content}</p>
 
 						<div className={`${isComment && 'mb-10'} mt-5 flex flex-col gap-3`}>
-							<div className="flex gap-3.5">
+							<div className="flex gap-5">
 								{/* <Image
 									src="/assets/heart-gray.svg"
 									alt="heart"
@@ -72,12 +69,7 @@ const ThreadCard = ({
 									height={24}
 									className="cursor-pointer object-contain"
 								/> */}
-								<LikeButton
-									postId={id}
-									likes={likes}
-									likesCount={likesCount}
-									isLiked={isLiked}
-								/>
+								<LikeButton postId={id} likes={likes} isLiked={isLiked} />
 
 								<Link href={`/thread/${id}`}>
 									<Image
@@ -88,21 +80,25 @@ const ThreadCard = ({
 										className="cursor-pointer object-contain"
 									/>
 								</Link>
-
-								<Image
-									src="/assets/repost.svg"
-									alt="repost"
-									width={24}
-									height={24}
-									className="cursor-pointer object-contain"
-								/>
-								<Image
-									src="/assets/share.svg"
-									alt="share"
-									width={24}
-									height={24}
-									className="cursor-pointer object-contain"
-								/>
+								{/* WIHTOUT DIV WRAPPER, ICONS WILL MIDDLE ALIGN */}
+								<div>
+									<Image
+										src="/assets/repost.svg"
+										alt="repost"
+										width={24}
+										height={24}
+										className="cursor-pointer object-contain"
+									/>
+								</div>
+								<div>
+									<Image
+										src="/assets/share.svg"
+										alt="share"
+										width={24}
+										height={24}
+										className="cursor-pointer object-contain"
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -125,9 +121,10 @@ const ThreadCard = ({
 					))}
 
 					<Link href={`/thread/${id}`}>
-						<p className="mt-1 text-subtle-medium text-gray-1">
+						<span className="mt-1 text-subtle-medium text-gray-1">
 							{comments.length} repl{comments.length > 1 ? 'ies' : 'y'}
-						</p>
+						</span>
+						{/* <LikeAmountCard postId={id} likes={likes} isLiked={isLiked} /> */}
 					</Link>
 				</div>
 			)}

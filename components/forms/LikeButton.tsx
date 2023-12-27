@@ -1,6 +1,7 @@
 'use client';
 
 import {
+	fetchLikesCount,
 	fetchThreadById,
 	likePost,
 	unlikePost,
@@ -14,13 +15,12 @@ import { useEffect, useState } from 'react';
 interface Props {
 	postId: string;
 	likes: string;
-	likesCount: string;
 	isLiked: boolean;
 }
 
-const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
+const LikeButton = ({ postId, likes, isLiked }: Props) => {
 	const [like, setLike] = useState(isLiked);
-	// const [count, setCount] = useState(likesCount.length);
+	const [count, setCount] = useState(0);
 
 	const handleLike = async () => {
 		if (like === true) {
@@ -31,8 +31,16 @@ const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
 		setLike(!like);
 	};
 
+	useEffect(() => {
+		let fetchLikes = async () => {
+			let likesNumber = await fetchLikesCount(postId);
+			setCount(likesNumber);
+		};
+		fetchLikes();
+	}, [like]);
+
 	return (
-		<>
+		<div>
 			<Image
 				onClick={handleLike}
 				src={`/assets/${like ? 'heart-filled.svg' : 'heart-gray.svg'}`}
@@ -42,17 +50,12 @@ const LikeButton = ({ postId, likes, likesCount, isLiked }: Props) => {
 				height={24}
 				className="cursor-pointer object-contain"
 			/>
-			{/* <p className="mt-1 text-subtle-medium text-gray-1">
-				{likesCount.length} lik{likesCount.length > 1 ? 'es' : 'e'}
-			</p> */}
-			{/* {count > 0 ? (
-				<p className="mt-1 text-subtle-medium text-gray-1">
-					{count} lik{count > 1 ? 'es' : 'e'}
-				</p>
+			{count > 0 ? (
+				<p className="mt-1 text-tiny-medium text-gray-1 text-center">{count}</p>
 			) : (
 				''
-			)} */}
-		</>
+			)}
+		</div>
 	);
 };
 
